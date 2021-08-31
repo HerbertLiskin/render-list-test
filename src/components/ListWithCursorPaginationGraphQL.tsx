@@ -3,20 +3,20 @@ import { Maybe } from 'graphql/jsutils/Maybe';
 import React, { UIEvent } from 'react';
 
 import {
-    useGetUsersQuery,
-    Edge,
+		useGetUsersQuery,
+		Edge,
 		UserItem
-  } from '../gql/graphql'
+	} from '../gql/graphql'
 
 const ListWithCursorPaginationGraphQL = () => {
 	const { 
-    data,
-    fetchMore, 
-  } = useGetUsersQuery({
-    variables: {
-      first: 20
-    }
-  })
+		data,
+		fetchMore, 
+	} = useGetUsersQuery({
+		variables: {
+			first: 20
+		}
+	})
 
 	const handleScrole = (e: UIEvent): void => {
 		const targetDiv: HTMLElement = e.target as HTMLElement
@@ -33,7 +33,7 @@ const ListWithCursorPaginationGraphQL = () => {
 				}
 			})
 		}
-  }
+	}
 
 	return (
 		<div className='bg-indigo-200 pt-10 pb-10 md:pr-20 md:pl-20 pr-4 pl-4'>

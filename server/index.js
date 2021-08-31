@@ -2,27 +2,27 @@ const {ApolloServer, gql} = require('apollo-server')
 const resolvers= require('./resolvers')
 
 const typeDefs = gql`
-	type Query {
-		users(first: Int, after: String): Users
-	}
+  type Query {
+    users(first: Int, after: String): Users
+  }
 
-	type UserItem {
-		id: ID!
-		index: Int!
-		firstName: String!
-		lastName: String!
-	}
+  type UserItem {
+    id: ID!
+    index: Int!
+    firstName: String!
+    lastName: String!
+  }
 
-	type Edge {
-		node: UserItem
-		cursor: String
-	}
+  type Edge {
+    node: UserItem
+    cursor: String
+  }
 
-	type Users {
-		edges: [Edge]!
-		pageInfo: PageInfo!
-		totalCount: String!
-	}
+  type Users {
+    edges: [Edge]!
+    pageInfo: PageInfo!
+    totalCount: String!
+  }
 
   type PageInfo {
     startCursor: String
