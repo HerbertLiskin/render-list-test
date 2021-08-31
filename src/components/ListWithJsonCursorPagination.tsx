@@ -75,9 +75,9 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
 					className='max-h-96 overflow-scroll rounded-md bg-red-500'
 					onWheel={handleScrole}
 				>
-					<div className='p-2'>
+					<div className='p-2 grid grid-cols-3 gap-x-2 gap-y-4'>
 						{
-							usersCurrentList.map((user: UserItem) => {
+							usersCurrentList.map((user: UserItem, i: number) => {
 								const {
 									id,
 									index,
@@ -87,10 +87,14 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
 								
 								return (
 									<div 
-										className='p-2 m-2 mx-auto bg-gray-50 text-purple-500 rounded-md'
+										className={`${i === 0 ? 'row-span-2': ''} p-2 m-2 mx-auto bg-gray-50 text-purple-500 rounded-md`}
 										key={id}
 									>
-										{index} | {firstName} {lastName} | id: {id}
+										<>
+										index: {index} <br /> 
+										{firstName} {lastName} <br />
+										<span className='text-xs'>id: {id}</span>
+										</>
 									</div>
 								)
 							})
