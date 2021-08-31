@@ -53,7 +53,7 @@ const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
   }
 
 	return (
-		<div className='bg-green-300 pt-10 pb-10 pr-20 pl-20'>
+		<div className='bg-green-300 pt-10 pb-10 md:pr-20 md:pl-20 pr-4 pl-4'>
 			<div className='text-white text-3xl mb-3'>List with offset pagination</div>
 			<div className='text-white text-xl mb-3'>Up/Down list with previous/next elements remove on scroll</div>
 			<div className='inline-block mb-2 p-2 bg-pink-200 rounded-md text-white'>Page №: {page}</div>

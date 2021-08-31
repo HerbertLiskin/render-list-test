@@ -36,7 +36,7 @@ const ListWithCursorPaginationGraphQL = () => {
   }
 
 	return (
-		<div className='bg-indigo-200 p-20'>
+		<div className='bg-indigo-200 pt-10 pb-10 md:pr-20 md:pl-20 pr-4 pl-4'>
 			<div className='text-yellow-600 text-3xl mb-3'>List with relay style cursor pagination (Apollo)</div>
 			<div className='text-yellow-600 text-xl mb-3'>Only down list without remove previous elements</div>
 				<div 

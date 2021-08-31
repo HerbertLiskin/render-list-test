@@ -64,7 +64,7 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
 	const listLastIndex: number = usersCurrentList[usersCurrentList.length-1].index
 
 	return (
-		<div className='bg-purple-500 pt-10 pb-10 pr-20 pl-20'>
+		<div className='bg-purple-500 pt-10 pb-10 md:pr-20 md:pl-20 pr-4 pl-4'>
 			<div className='text-white text-3xl mb-3'>List with somthing like cursor pagination</div>
 			<div className='text-white text-xl mb-3'>Previous/next elements remove on scroll. Cursor bound to id's.</div>
 			<div className='w-full flex justify-between'>
