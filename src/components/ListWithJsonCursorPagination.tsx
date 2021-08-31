@@ -1,6 +1,6 @@
 
 import React, { useState, WheelEvent } from 'react'
-
+import Bowser from 'bowser'
 import {
   UserItem
 } from '../gql/graphql'
@@ -8,12 +8,13 @@ import { UsersListProps } from '../types'
 
 const OFFSET: number = 40;
 
+
 const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => {
   const [usersFullList] = useState<UserItem[]>(usersList)
   const [startCursor, setStartCursor] = useState<String>(usersFullList[0].id)
-  const [endCursor, setEndCursor] = useState<String>(usersFullList[OFFSET].id)
-  const [usersCurrentList, setUsersCurrentList] = useState<UserItem[]>(usersFullList.slice(0, OFFSET))
-
+  const [endCursor, setEndCursor] = useState<String>(usersFullList[OFFSET*2-1].id)
+  const [usersCurrentList, setUsersCurrentList] = useState<UserItem[]>(usersFullList.slice(0, OFFSET*2))
+  const [browserName] = useState<String>(Bowser.getParser(window.navigator.userAgent).getBrowserName())
 
   const nextPage = () => {
     const lastIndex: number = usersFullList.findIndex(user => user.id === endCursor)
@@ -50,13 +51,21 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
       scrollTop >= wrapperHeight - overflowHeight*2 &&
       usersCurrentList[usersCurrentList.length - 1].index < usersFullList[usersFullList.length - 1].index
     ) {
+
       nextPage()
+      if(browserName === 'Safari') {
+        targetDiv.scrollTop = (wrapperHeight - overflowHeight)/2 - overflowHeight*1.33
+      }
+
     } else if(
       !isScrollDown && 
       scrollTop <= overflowHeight*2 && 
       usersCurrentList[0].index > 0
     ) {
       prevPage()
+      if(browserName === 'Safari') {
+        targetDiv.scrollTop = wrapperHeight - overflowHeight*2.66
+      }
     }
   }
 
@@ -72,10 +81,17 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
         <div className='mb-2 p-2 bg-red-500 rounded-md text-white'>Elements [start - end] indexes: {listFirstIndex} - {listLastIndex}</div>
       </div>
         <div 
-          className='max-h-96 overflow-scroll rounded-md bg-red-500'
+          className='max-h-96 overflow-auto rounded-md bg-red-500'
           onWheel={handleScrole}
         >
-          <div className='p-2 grid grid-cols-2 md:grid-cols-3 gap-4'>
+          <div 
+            className='p-2 grid grid-cols-2 md:grid-cols-3 gap-4'
+            style={{
+              position: 'relative', 
+              transform: 'translate3d(0, 0, 0)',
+              overflowAnchor: 'auto'
+            }}
+          >
             {
               usersCurrentList.map((user: UserItem, i: number) => {
                 const {
@@ -89,6 +105,7 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
                   <div 
                     className={`${i === 0 ? 'row-span-2': ''} p-2 bg-gray-50 text-purple-500 rounded-md`}
                     key={id}
+                    style={{overflowAnchor: 'auto'}}
                   >
                     <>
                     index: {index} <br /> 

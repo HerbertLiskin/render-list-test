@@ -1,5 +1,6 @@
 
-import React, { useState, WheelEvent } from 'react';
+import React, { useState, WheelEvent } from 'react'
+import Bowser from 'bowser'
 
 import {
   UserItem
@@ -13,6 +14,7 @@ const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
   const [usersFullList] = useState<UserItem[]>(usersList.slice(0, 300))
   const [usersCurrentList, setUsersCurrentList] = useState<UserItem[]>(usersFullList.slice(0, PAGE_SIZE*2))
   const [page, setPage] = useState<number>(START_PAGE)
+  const [browserName] = useState<String>(Bowser.getParser(window.navigator.userAgent).getBrowserName())
 
   const nextPage = () => {
     setUsersCurrentList(usersFullList.slice(PAGE_SIZE*(page - 1), PAGE_SIZE*(page+2)))
@@ -43,12 +45,18 @@ const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
       page < usersFullList.length/PAGE_SIZE
     ) {
       nextPage()
+      if(browserName === 'Safari') {
+        targetDiv.scrollTop = (wrapperHeight - overflowHeight)/2 - overflowHeight*1.33
+      }
     } else if(
       !isScrollDown && 
       scrollTop <= overflowHeight*2 && 
       page > 1
     ) {
       prevPage()
+      if(browserName === 'Safari') {
+        targetDiv.scrollTop = wrapperHeight - overflowHeight*2.66
+      }
     }
   }
 
