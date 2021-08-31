@@ -54,17 +54,17 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
 
       nextPage()
       if(browserName === 'Safari') {
-        targetDiv.scrollTop = (wrapperHeight - overflowHeight)/2 - overflowHeight*1.33
+        targetDiv.scrollTop = (wrapperHeight - overflowHeight)/2 - overflowHeight*1.36 //1.33
       }
 
     } else if(
       !isScrollDown && 
-      scrollTop <= overflowHeight*2 && 
+      scrollTop <= overflowHeight && 
       usersCurrentList[0].index > 0
     ) {
       prevPage()
       if(browserName === 'Safari') {
-        targetDiv.scrollTop = wrapperHeight - overflowHeight*2.66
+        targetDiv.scrollTop = wrapperHeight - overflowHeight*2.50 //2.66
       }
     }
   }
@@ -82,10 +82,11 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
       </div>
         <div 
           className='max-h-96 overflow-auto rounded-md bg-red-500'
+          style={{maxHeight: '26rem'}}
           onWheel={handleScrole}
         >
           <div 
-            className='p-2 grid grid-cols-2 md:grid-cols-3 gap-4'
+            className='p-2 grid grid-cols-2 md:grid-cols-3 gap-4 truncate'
           >
             {
               usersCurrentList.map((user: UserItem, i: number) => {
