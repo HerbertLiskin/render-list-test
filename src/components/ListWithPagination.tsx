@@ -10,7 +10,7 @@ const PAGE_SIZE: number = 20;
 const START_PAGE: number = 1
 
 const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
-	const [usersFullList] = useState<UserItem[]>(usersList)
+	const [usersFullList] = useState<UserItem[]>(usersList.slice(0, 300))
 	const [usersCurrentList, setUsersCurrentList] = useState<UserItem[]>(usersFullList.slice(0, PAGE_SIZE*2))
 	const [page, setPage] = useState<number>(START_PAGE)
 
@@ -39,7 +39,8 @@ const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
 
 		if(
 			isScrollDown && 
-			scrollTop >= wrapperHeight - overflowHeight*2
+			scrollTop >= wrapperHeight - overflowHeight*2 &&
+			page < usersFullList.length/PAGE_SIZE
 		) {
 			nextPage()
 		} else if(
