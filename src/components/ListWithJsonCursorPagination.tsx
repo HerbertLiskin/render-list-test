@@ -68,14 +68,14 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
 			<div className='text-white text-3xl mb-3'>List with somthing like cursor pagination</div>
 			<div className='text-white text-xl mb-3'>Previous/next elements remove on scroll. Cursor bound to id's.</div>
 			<div className='w-full flex justify-between'>
-				<div className='mb-2 p-2 bg-red-500 rounded-md text-white'>Total count: {usersFullList.length}</div>
+				<div className='mb-2 mr-4 p-2 bg-red-500 rounded-md text-white'>Total count: {usersFullList.length}</div>
 				<div className='mb-2 p-2 bg-red-500 rounded-md text-white'>Elements [start - end] indexes: {listFirstIndex} - {listLastIndex}</div>
 			</div>
 				<div 
 					className='max-h-96 overflow-scroll rounded-md bg-red-500'
 					onWheel={handleScrole}
 				>
-					<div className='p-2 grid grid-cols-3 gap-x-2 gap-y-4'>
+					<div className='p-2 grid grid-cols-2 md:grid-cols-3 gap-4'>
 						{
 							usersCurrentList.map((user: UserItem, i: number) => {
 								const {
@@ -87,7 +87,7 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
 								
 								return (
 									<div 
-										className={`${i === 0 ? 'row-span-2': ''} p-2 m-2 mx-auto bg-gray-50 text-purple-500 rounded-md`}
+										className={`${i === 0 ? 'row-span-2': ''} p-2 bg-gray-50 text-purple-500 rounded-md`}
 										key={id}
 									>
 										<>
