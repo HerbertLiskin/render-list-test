@@ -6,19 +6,19 @@ import {
 } from '../gql/graphql'
 import { UsersListProps } from '../types'
 
-const OFFSET: number = 40;
+const OFFSET = 40;
 
 
 const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => {
-  const [usersFullList] = useState<UserItem[]>(usersList)
-  const [startCursor, setStartCursor] = useState<String>(usersFullList[0].id)
-  const [endCursor, setEndCursor] = useState<String>(usersFullList[OFFSET*2-1].id)
-  const [usersCurrentList, setUsersCurrentList] = useState<UserItem[]>(usersFullList.slice(0, OFFSET*2))
-  const [browserName] = useState<String>(Bowser.getParser(window.navigator.userAgent).getBrowserName())
+  const [usersFullList] = useState(usersList)
+  const [startCursor, setStartCursor] = useState(usersFullList[0].id)
+  const [endCursor, setEndCursor] = useState(usersFullList[OFFSET*2-1].id)
+  const [usersCurrentList, setUsersCurrentList] = useState(usersFullList.slice(0, OFFSET*2))
+  const [browserName] = useState(Bowser.getParser(window.navigator.userAgent).getBrowserName())
 
   const nextPage = () => {
-    const lastIndex: number = usersFullList.findIndex(user => user.id === endCursor)
-    const currentList: Array<UserItem> = usersFullList.slice(lastIndex-OFFSET+1, lastIndex+OFFSET+1)
+    const lastIndex = usersFullList.findIndex(user => user.id === endCursor)
+    const currentList = usersFullList.slice(lastIndex-OFFSET+1, lastIndex+OFFSET+1)
 
     setUsersCurrentList(currentList)
     setStartCursor(currentList[0].id)
@@ -26,11 +26,11 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
   }
 
   const prevPage = () => {
-    const startElementIndex: number = usersFullList.findIndex(user => user.id === startCursor)
-    const startIndex: number = startElementIndex - OFFSET < 0 ? 0 : startElementIndex - OFFSET
-    const lastIndex: number = startElementIndex - OFFSET < 0 ? OFFSET : startElementIndex
+    const startElementIndex = usersFullList.findIndex(user => user.id === startCursor)
+    const startIndex = startElementIndex - OFFSET < 0 ? 0 : startElementIndex - OFFSET
+    const lastIndex = startElementIndex - OFFSET < 0 ? OFFSET : startElementIndex
 
-    const currentList: Array<UserItem>  = usersFullList.slice(startIndex, lastIndex+OFFSET)
+    const currentList = usersFullList.slice(startIndex, lastIndex+OFFSET)
 
     setUsersCurrentList(currentList)
     setStartCursor(currentList[0].id)
@@ -38,13 +38,13 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
   }
 
   const handleScrole = (e: WheelEvent<HTMLDivElement>) => {
-    const targetDiv: HTMLElement = e.currentTarget as HTMLElement
-    const	wrapperDiv: HTMLElement = targetDiv.children[0] as HTMLElement
+    const targetDiv = e.currentTarget
+    const	wrapperDiv = targetDiv.children[0] as HTMLElement
     
-    const overflowHeight: number = targetDiv.offsetHeight
-    const scrollTop: number = targetDiv.scrollTop
-    const wrapperHeight: number = wrapperDiv.offsetHeight
-    const isScrollDown: boolean = e.deltaY > 0
+    const overflowHeight = targetDiv.offsetHeight
+    const scrollTop = targetDiv.scrollTop
+    const wrapperHeight = wrapperDiv.offsetHeight
+    const isScrollDown = e.deltaY > 0
 
     const nextScrollPos = (wrapperHeight - overflowHeight)/2 - overflowHeight*4.5 //*2.5//*2//*1.5
     const prevScrollPos = wrapperHeight - overflowHeight*5 //*3//*2.5//*2
@@ -70,8 +70,8 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
     }
   }
 
-  const listFirstIndex: number = usersCurrentList[0].index
-  const listLastIndex: number = usersCurrentList[usersCurrentList.length-1].index
+  const listFirstIndex = usersCurrentList[0].index
+  const listLastIndex = usersCurrentList[usersCurrentList.length-1].index
 
   return (
     <div className='bg-purple-500 pt-10 pb-10 md:pr-20 md:pl-20 pr-4 pl-4'>
@@ -89,7 +89,7 @@ const ListWithJsonCursorPagination: React.FC<UsersListProps> = ({usersList}) => 
             className='p-2 grid grid-cols-1 gap-4 truncate'
           >
             {
-              usersCurrentList.map((user: UserItem, i: number) => {
+              usersCurrentList.map((user) => {
                 const {
                   id,
                   index,

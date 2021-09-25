@@ -5,16 +5,16 @@ import Bowser from 'bowser'
 import {
   UserItem
 } from '../gql/graphql'
-import { UsersListProps } from '../types';
+import { UsersListProps } from '../types'
 
-const PAGE_SIZE: number = 20;
-const START_PAGE: number = 1
+const PAGE_SIZE = 20
+const START_PAGE = 1
 
 const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
-  const [usersFullList] = useState<UserItem[]>(usersList.slice(0, 300))
-  const [usersCurrentList, setUsersCurrentList] = useState<UserItem[]>(usersFullList.slice(0, PAGE_SIZE*2))
-  const [page, setPage] = useState<number>(START_PAGE)
-  const [browserName] = useState<String>(Bowser.getParser(window.navigator.userAgent).getBrowserName())
+  const [usersFullList] = useState(usersList.slice(0, 300))
+  const [usersCurrentList, setUsersCurrentList] = useState(usersFullList.slice(0, PAGE_SIZE*2))
+  const [page, setPage] = useState(START_PAGE)
+  const [browserName] = useState(Bowser.getParser(window.navigator.userAgent).getBrowserName())
 
   const nextPage = () => {
     setUsersCurrentList(usersFullList.slice(PAGE_SIZE*(page - 1), PAGE_SIZE*(page+2)))
@@ -31,8 +31,8 @@ const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
   }
 
   const handleScrole = (e: WheelEvent<HTMLDivElement>) => {
-    const targetDiv: HTMLElement = e.currentTarget as HTMLElement
-    const	wrapperDiv: HTMLElement = targetDiv.children[0] as HTMLElement
+    const targetDiv = e.currentTarget
+    const	wrapperDiv = targetDiv.children[0] as HTMLElement
     
     const overflowHeight: number = targetDiv.offsetHeight
     const scrollTop: number = targetDiv.scrollTop
@@ -71,14 +71,14 @@ const ListWithPagination: React.FC<UsersListProps> = ({usersList}) => {
         >
           <div className='p-2'>
             {
-              usersCurrentList.map((user: UserItem) => {
+              usersCurrentList.map((user) => {
                 const {
                   id,
                   index,
                   firstName, 
-                  lastName
+                  lastName,
                 } = user
-                
+
                 return (
                   <div 
                     className='p-2 m-2 mx-auto bg-gray-50 text-green-500 rounded-md'

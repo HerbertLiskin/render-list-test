@@ -4,7 +4,6 @@ import React, { UIEvent } from 'react';
 
 import {
     useGetUsersQuery,
-    Edge,
     UserItem
   } from '../gql/graphql'
 
@@ -18,13 +17,13 @@ const ListWithCursorPaginationGraphQL = () => {
     }
   })
 
-  const handleScrole = (e: UIEvent): void => {
-    const targetDiv: HTMLElement = e.target as HTMLElement
-    const wrapperDiv: HTMLElement = targetDiv.children[0] as HTMLElement
+  const handleScrole = (e: any) => {
+    const targetDiv = e.target
+    const wrapperDiv = targetDiv.children[0]
 
-    const overflowHeight: number = targetDiv.offsetHeight
-    const scrollTop: number = targetDiv.scrollTop
-    const wrapperHeight: number = wrapperDiv.offsetHeight
+    const overflowHeight = targetDiv.offsetHeight
+    const scrollTop = targetDiv.scrollTop
+    const wrapperHeight = wrapperDiv.offsetHeight
 
     if(scrollTop >= wrapperHeight - overflowHeight*2) {
       fetchMore({
@@ -45,7 +44,7 @@ const ListWithCursorPaginationGraphQL = () => {
         >
           <div className='p-2'>
             {
-              data?.users?.edges.map((user: Maybe<Edge>) => {
+              data?.users?.edges.map((user) => {
                 const {
                   id,
                   index,
